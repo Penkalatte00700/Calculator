@@ -147,6 +147,19 @@ public static class Calculations
             {
                 ops.Push(token);
             }
+            else if (token == ",")
+            {
+                while (!ops.IsEmpty() && ops.Peek() != "(")
+                {
+                    output[outCount] = ops.Pop();
+                    outCount++;
+                }
+
+                if (ops.IsEmpty())
+                {
+                    throw new Exception("Problem with comma");
+                }
+            }
             else if (IsOperator(token))
             {
                 while (!ops.IsEmpty() && IsOperator(ops.Peek()) && Priority(ops.Peek()) > Priority(token))
