@@ -1,4 +1,6 @@
-﻿namespace Calculator;
+﻿//https://github.com/Penkalatte00700/Calculator
+
+namespace Calculator;
 
 public class MyStack<T>
 {
