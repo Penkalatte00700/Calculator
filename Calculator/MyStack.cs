@@ -13,9 +13,9 @@ public class MyStack<T>
         count = 0;
     }
 
-    public int Count
+    public int GetCount()
     {
-        get { return count;  }
+        return count;
     }
 
     public void Push(T item)

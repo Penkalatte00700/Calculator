@@ -1,4 +1,4 @@
-﻿//https://github.com/Penkalatte00700/Calculator
+﻿//https://github.com/Penkalatte00700/Calculatorx
 
 namespace Calculator;
 

@@ -230,7 +230,7 @@ public static class Calculations
             }
             else if (IsOperator(token))
             {
-                if (stack.Count < 2)
+                if (stack.GetCount() < 2)
                 {
                     throw new Exception("Invalid expr");
                 }
@@ -282,7 +282,7 @@ public static class Calculations
             }
         }
 
-        if (stack.Count != 1)
+        if (stack.GetCount() != 1)
         {
             throw new Exception("Invalid expr");
         }
