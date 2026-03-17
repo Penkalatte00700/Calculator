@@ -96,7 +96,8 @@ public static class Calculations
     }
     private static bool IsNum(string s)
     {
-        return double.TryParse(s, out _);
+        double temp;
+        return double.TryParse(s, out temp);
     }
 
     private static bool IsOperator(string s)
