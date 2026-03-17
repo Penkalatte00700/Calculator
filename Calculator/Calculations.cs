@@ -22,11 +22,13 @@ public static class Calculations
 
             if (a == '-')
             {
-                bool u = number == "" && (count == 0 || temp[count - 1] == "(" || IsOperator(temp[count - 1]));
-                if (u)
+                if (number == "")
                 {
-                    number += a;
-                    continue;
+                    if (count == 0 || temp[count - 1] == "(" || IsOperator(temp[count - 1]))
+                    {
+                        number += "-";
+                        continue;
+                    }
                 }
             }
 
@@ -163,10 +165,17 @@ public static class Calculations
             }
             else if (IsOperator(token))
             {
-                while (!ops.IsEmpty() && IsOperator(ops.Peek()) && Priority(ops.Peek()) > Priority(token))
+                while (!ops.IsEmpty())
                 {
+                    string top = ops.Peek();
+                    if (!IsOperator(top) || Priority(top) < Priority(token))
+                    {
+                        break;
+                    }
+
                     output[outCount] = ops.Pop();
                     outCount++;
+
                 }
 
                 ops.Push(token);
