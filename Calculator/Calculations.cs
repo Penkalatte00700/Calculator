@@ -84,7 +84,8 @@ public static class Calculations
             {
                 throw new Exception("Wrong function");
             }
-            temp[count++] = w;
+            temp[count] = w;
+            count++;
         }
 
         string[] result = new string[count];
