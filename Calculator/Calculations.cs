@@ -110,7 +110,7 @@ public static class Calculations
 
     private static bool IsFunction(string s)
     {
-        return s == "sin" || s == "cos" || s == "max";
+        return s == "sin" || s == "cos" || s == "max" || s == "min";
     }
 
     private static int Priority(string oper)
@@ -136,7 +136,7 @@ public static class Calculations
     {
         string[] output = new string[tokens.Length];
         int outCount = 0;
-        MyStack<string> ops = new MyStack<string>();
+        MyStack<string> ops = new MyStack<string>(); // operators and funtions
 
         for (int i = 0; i < tokens.Length; i++)
         {
@@ -146,12 +146,14 @@ public static class Calculations
             {
                 output[outCount] = token;
                 outCount++;
+                Console.WriteLine($"{token} to output");
             }
             else if (IsFunction(token))
             {
                 ops.Push(token);
+                Console.WriteLine($"{token} to stack");
             }
-            else if (token == ",")
+            else if (token == ",")// викидаємо до найближчої (
             {
                 while (!ops.IsEmpty() && ops.Peek() != "(")
                 {
@@ -164,7 +166,7 @@ public static class Calculations
                     throw new Exception("Problem with comma");
                 }
             }
-            else if (IsOperator(token))
+            else if (IsOperator(token)) // доки у стеку оператор з рівним або більшим пріоритетом перенесемо його в аутпут
             {
                 while (!ops.IsEmpty())
                 {
@@ -179,13 +181,13 @@ public static class Calculations
 
                 }
 
-                ops.Push(token);
+                ops.Push(token); // поточний в стек
             }
             else if (token == "(")
             {
                 ops.Push(token);
             }
-            else if (token == ")")
+            else if (token == ")") // переносимо оператори в аутпут до (
             {
                 while (!ops.IsEmpty() && ops.Peek() != "(")
                 {
@@ -200,11 +202,16 @@ public static class Calculations
 
                 ops.Pop();
 
+                if (!ops.IsEmpty() && IsFunction(ops.Peek()))
+                {
+                    output[outCount] = ops.Pop();
+                    outCount++;
+                }
 
             }
             
         }
-        while (!ops.IsEmpty())
+        while (!ops.IsEmpty()) // очистка
         {
             string top = ops.Pop();
 
@@ -289,6 +296,13 @@ public static class Calculations
                     double znach1 = stack.Pop();
                     stack.Push(Math.Max(znach, znach1));
                 }
+
+                if (token == "min")
+                {
+                    double znach = stack.Pop();
+                    double znach1 = stack.Pop();
+                    stack.Push(Math.Min(znach, znach1));
+                }
                 
             }
         }
@@ -301,3 +315,5 @@ public static class Calculations
     }
     
 }
+
+/// @ min
